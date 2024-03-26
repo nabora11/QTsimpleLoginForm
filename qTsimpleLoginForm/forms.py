@@ -4,6 +4,7 @@ from PyQt5 import QtGui as qtg
 from qTsimpleLoginForm.db import DB
 
 
+
 class MainWindow(qtw.QWidget):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -49,7 +50,6 @@ class LoginForm(qtw.QWidget):
 
         # self.lbl_user.setStyleSheet("color: red;background-color:aqua;")
         self.load=self.read_css('./qTsimpleLoginForm/main_style.css')
-        print(self.load)
         self.setStyleSheet(self.load)
         # self.setStyleSheet('QLabel#lbl_username{color:green;}')
         # self.setStyleSheet('QLabel#lbl_password{color:red;}')
@@ -57,13 +57,13 @@ class LoginForm(qtw.QWidget):
 
         self.show()
 
+
     def read_css(self,name):
         with open(name,"r") as f:
             return f.read()
     def OnBtnSubmit(self):
-        user_db=DB('test','root','localhost')
+        user_db=DB()
         self.msg = qtw.QMessageBox()
-
 
         if user_db.authenticate(self.le_user.text(),self.le_password.text()):
             # self.msg.setIcon(qtw.QMessageBox.information)
@@ -78,6 +78,7 @@ class LoginForm(qtw.QWidget):
             self.msg.setStandardButtons(qtw.QMessageBox.Ok|qtw.QMessageBox.Cancel)
         # self.msg.exec()
         self.msg.show()
+
 if __name__ == "__main__":
     app = qtw.QApplication([])
     main_widget = MainWindow()

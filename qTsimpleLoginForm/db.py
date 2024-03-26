@@ -1,16 +1,18 @@
 import mysql
 from mysql.connector import connect
 from mysql.connector import errorcode
+from configparser import ConfigParser
 
 class DB():
-    def __init__(self,database_,username_,host_):
+    def __init__(self):
         try:
-            self.cnx=connect(database=database_,username=username_,password='NiRa7712*',host=host_,port=3306)
+            db_config=DB.read_db_config_file()
+            self.cnx=connect(database=db_config['database'],username=db_config['user'],
+                             password=db_config['password'],host=db_config['host'],port=db_config['port'])
             mycursor = self.cnx.cursor()
             mycursor.execute("Show tables from test like 'users';")
             myresult = mycursor.fetchall()
             if myresult==[]:
-
                 q=f"""CREATE TABLE users(
                 ID int AUTO_INCREMENT,
                 FirstName varchar(255),
@@ -35,6 +37,19 @@ class DB():
                 print("Database does not exist")
             else:
                 print(err)
+    def read_db_config_file(filename='./config.ini', section='mysql'):
+        parser=ConfigParser()
+        parser.read(filename)
+
+        config_db= {}
+        if parser.has_section(section):
+            items=parser.items(section)
+            for item in items:
+                config_db[item[0]]=item[1]
+        else:
+            raise Exception(f'{section} not found in {filename}')
+        return config_db
+
     def authenticate(self,mail,pass_):
         mycursor=self.cnx.cursor()
         mycursor.execute('SELECT * FROM users WHERE UserName=%s',(mail,))
@@ -45,7 +60,7 @@ class DB():
         else:
             return False
 if __name__ == '__main__':
-    db=DB('test','root','localhost')
+    db=DB()
     myresult=db.authenticate('maria@abv.bg')
     if myresult==[]:
         print("Wrong username try again")
