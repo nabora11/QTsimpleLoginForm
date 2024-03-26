@@ -1,0 +1,19 @@
+
+QLabel#lbl_username{color:green;}
+QLabel#lbl_password{
+    color:red;
+    background-color:yellow;
+    margin: 15px;
+    border: 2px solid cyan;
+    font-size:20px;
+    padding: 20px;
+    }
+QPushButton:hover{
+    background-color:aqua;
+    font-size:20px;
+}
+
+QPushButton:!active{
+    background-color:magenta;
+    font-size:30px;
+}
