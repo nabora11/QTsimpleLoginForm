@@ -1,16 +1,21 @@
-"# QTsimpleLoginForm" 
+#  QTsimpleLoginForm
+## About
  QTsimpleLoginForm is a Python project for dealing with simple login.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+
 
 ```bash
+git clone<project>
+create and activate virtenv for the project
+#install project dependancies
+'pip install -r requirements.txt'
+#set your MySql data in config.ini
 
+#start project
+python app.py
 ```
-
-## Usage
-
 
 
 ## Contributing
