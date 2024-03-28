@@ -10,6 +10,11 @@ class DB():
             self.cnx=connect(database=db_config['database'],username=db_config['user'],
                              password=db_config['password'],host=db_config['host'],port=db_config['port'])
             mycursor = self.cnx.cursor()
+            # uid = db_config['user']
+            # old_pwd = db_config['password']
+            # new_pwd = 'root123'
+            # sql = "ALTER USER 'root'@'127.0.0.1'  IDENTIFIED WITH 'NiRa7712*' BY 'root123';"
+            # mycursor.execute(sql)
             mycursor.execute("Show tables from test like 'users';")
             myresult = mycursor.fetchall()
             if myresult==[]:
